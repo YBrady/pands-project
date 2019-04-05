@@ -1,5 +1,5 @@
 
-<img align="left" src="GMIT-logo.png" alt="GMIT" width="200"/>                               <img align="right" src="data-analytics.png" alt="HDipDA" width="300"/>  
+<img align="left" src="/images/GMIT-logo.png" alt="GMIT" width="200"/>                               <img align="right" src="/images/data-analytics.png" alt="HDipDA" width="300"/>  
 
 # Programming &amp; Scripting Fischers Iris Dataset Project Semester 1 2019
 
