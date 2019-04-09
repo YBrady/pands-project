@@ -1,10 +1,18 @@
-import pandas
-import numpy
-from pandas.plotting import scatter_matrix
-import matplotlib.pyplot as plt
+
 # 
 # Fischers Iris Dataset
 # 
+
+import pandas
+import numpy as np
+from pandas.plotting import scatter_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+import matplotlib
+import spices
+sns.set(color_codes=True)
+
+
 
 # Declaring and setting the dataset as a global variable - saves going back and forth all the time
 data = pandas.read_csv("iris_csv.csv") # All Irises
@@ -92,12 +100,13 @@ def display_plot_menu():
 	print("2 - Iris-Setosa BoxPlot")
 	print("3 - Iris-Versicolor BoxPlot")
 	print("4 - All Iris BoxPlot")
-	print("5 - Return to Main Menu")
+	print("5 - Compare BoxPlot")
+	print("0 - Return to Main Menu")
 
 	choice = input("Enter plot choice: ")
 	print("")
 
-	if (choice == "5"):
+	if (choice == "0"):
 		display_menu()
 	else:
 	    # box and whisker plots
@@ -109,6 +118,8 @@ def display_plot_menu():
 			dataVers.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
 		elif (choice == "4"):
 			data.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
+		elif (choice == "5"):
+			compare_box()
 		else:
 			display_plot_menu()
 
@@ -129,9 +140,26 @@ def display_menu():
     print("4 - Exit")
 
 
+def compare_box():
+	# COMPARING THE DIFFERENT NUMERICAL COLUMNS IN THE GIVEN DATASET 
+	listOfColumns = data.columns
+	listOfNumericalColumns = []
 
+	for column in listOfColumns:
+		if (data[column].dtype == np.float64):
+			listOfNumericalColumns.append(column)
 
+	print('listOfNumericalColumns :',listOfNumericalColumns)
+	spices = data['Species'].unique()
+	print('spices :',spices)
 
+	fig, axs = plt.subplots(nrows=len(listOfNumericalColumns),ncols=len(spices),figsize=(15,15))
+
+	for i in range(len(listOfNumericalColumns)):
+		for j in range(len(spices)):  
+			print(listOfNumericalColumns[i]," : ",spices[j])
+			axs[i,j].boxplot(data[listOfNumericalColumns[i]][data['Species']==spices[j]])
+			axs[i,j].set_title(listOfNumericalColumns[i]+""+spices[j])
 
 if __name__ == "__main__":
 	# execute only if run as a script 
