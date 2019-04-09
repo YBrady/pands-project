@@ -9,7 +9,7 @@ from pandas.plotting import scatter_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib
-import spices
+
 sns.set(color_codes=True)
 
 
@@ -150,7 +150,7 @@ def compare_box():
 			listOfNumericalColumns.append(column)
 
 	print('listOfNumericalColumns :',listOfNumericalColumns)
-	spices = data['Species'].unique()
+	spices = data['class'].unique()
 	print('spices :',spices)
 
 	fig, axs = plt.subplots(nrows=len(listOfNumericalColumns),ncols=len(spices),figsize=(15,15))
@@ -158,7 +158,7 @@ def compare_box():
 	for i in range(len(listOfNumericalColumns)):
 		for j in range(len(spices)):  
 			print(listOfNumericalColumns[i]," : ",spices[j])
-			axs[i,j].boxplot(data[listOfNumericalColumns[i]][data['Species']==spices[j]])
+			axs[i,j].boxplot(data[listOfNumericalColumns[i]][data['class']==spices[j]])
 			axs[i,j].set_title(listOfNumericalColumns[i]+""+spices[j])
 
 if __name__ == "__main__":
