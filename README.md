@@ -12,12 +12,13 @@ ___________________________________________
 **Student ID**: G00376355  
 ___________________________________________
 
-<img align="left" src="/images/iris-varieties.png" alt="Iris Varieties"/>
 
 ## 1. The Background ##
-In 1936 Robert Fisher published a paper _The use of multiple measurements in taxonomic problems as an example of linear discriminant analysis_ [1] introducing the now famous Iris Data Set. This data set comprises the width and length measurements of the sepals and petals of three different Iris varieties. 50 samples of each variety were collected on the same day, by the same person (Anderson) and measured using the same instruments. 
+In 1936 Robert Fisher published a paper _The use of multiple measurements in taxonomic problems as an example of linear discriminant analysis_ [1] introducing the now famous Iris Data Set. This data set comprises the width and length measurements of the sepals and petals of three different Iris varieties. 50 samples of each variety were collected on the same day, by the same person (Edgar Anderson) and measured using the same instruments. As it was Anderson who actually collected the flowers from the Gaspé Penninsula in Canada, this dataset is sometimes called the Anderson Data Set.
 
-The resultant dataset comprised of 150 records each containing 5 no attributes - each of the petal and sepal measurements and also the variety of Iris the measurements related to. This dataset is widely used as a reference for Data Analytics amd Machine Learning.
+The dataset comprises of 150 records each containing 5 no attributes - each of the petal and sepal measurements and also the variety of Iris the measurements related to. This dataset is widely used as a reference for Data Analytics amd Machine Learning see the references section below for a small subset of the analysis performed on this dataset. As part of this project I have reviewed each of the references listed.
+
+<img align="left" src="/images/iris-varieties.png" alt="Iris Varieties"/>
 
 ### 1.1 The Project Brief ###
 The following project concerns the well-known Fisher’s Iris data set. The project entails you researching the data set, and then writing documentation and code in the Python programming language based on that research.
@@ -26,11 +27,18 @@ The following project concerns the well-known Fisher’s Iris data set. The proj
 Initial exploration of the dataset consisted of finding out about the data in broad terms. A number python commands helped in getting an overall feel for the data:
 
 ### 2.1 Data Familiarisation ###
+Firstly, to get an idea of the size and shape of the dataset the following command can be run:<img align="right" src="/images/Screen Shots/dataShape.png" alt="Data Info"/>
+```python
+data.shape()
+```
+
+As can be seen from the results of this command, the dataset comprises 150 rows each with five attributes.
+
 ```python
 data.info
 ``` 
 <img align="left" src="/images/Screen Shots/dataInfo.png" alt="Data Info"/>
-The data.info command showed that there are 150 entries in the dataset, each with 5 columns. Of the five columns, ,four are numeric in nature (floating point) reflecting the sepal and petal lenth and width measurements respectively. The fifth column "class" is of data type object. 
+The data.info command showed that there are 150 entries in the dataset, each with 5 columns. Of the five columns, four are numeric in nature (floating point) reflecting the sepal and petal lenth and width measurements respectively. The fifth column "class" is of data type object. 
 
 ```python
 data.head()
@@ -60,6 +68,7 @@ The value_counts() returns the count of all the various instances of the class a
 * Iris-versicolor
 All three iris varieties appear in the dataset with the same frequency - 50 readings each.
 
+### 2.2 Initial Statistical Analysis ###
 Now we know a little bit abou the data in the dataset, ets look at some broad statistics.
 
 '''python
@@ -91,11 +100,11 @@ data.loc[data['class'] == "Iris-xxxx"].describe()
 
 * Grouping the classes together and looking at the max, min, mean, std in isolation for each attribute
 ``` python
- data.groupby("class").mean()
+ data.groupby("class").mean() # substitute min / max / std for minimum, maximum and standard deviation values respectively
 ```
 <img align="right" src="/images/Screen Shots/classMean.png" alt="Mean values per class"/>
 
-Given the likely requirement of the analysis is to discern the difference between the classes of iris, the methods that compare accross the classes _i.e._ the second one above, would appear to be the most useful in this case. In fact looking at the results shown for the mean, and also borne out for the min, max and standard deviation (not shown), it would appear the Iris-setosa petal measurements do indeed hold a lot of promise as measurements to differentiate it from the other classes of iris.
+Given the likely requirement of the analysis is to discern the difference between the classes of iris, the methods that compare across the classes _i.e._ the second one above, would appear to be the most useful in this case. In fact looking at the results shown for the mean, and also borne out for the min, max and standard deviation (not shown), it would appear the Iris-setosa petal measurements do indeed hold a lot of promise as measurements to differentiate it from the other classes of iris.
 
 They say that a picture tells a thousand words, so having looked at the numeric data, it is now time to look at the graphical representation of this data.
 
@@ -140,3 +149,11 @@ A number of modules were required to perform this analysis, namely:
 
 [y] https://chartio.com/learn/data-analytics/what-is-exploratory-data-analysis/  
 [z] https://www.geeksforgeeks.org/python-pandas-dataframe/
+
+[] https://www.kaggle.com/gopaltirupur/iris-data-analysis-and-machine-learning-python
+[] https://medium.com/codebagng/basic-analysis-of-the-iris-data-set-using-python-2995618a6342
+[] https://github.com/RitRa/Project2018-iris
+
+
+[] https://machinelearningmastery.com/machine-learning-in-python-step-by-step/
+[] https://diwashrestha.com/2017/09/18/machine-learning-on-iris/
