@@ -27,10 +27,12 @@ The following project concerns the well-known Fisher’s Iris data set. The proj
 Initial exploration of the dataset consisted of finding out about the data in broad terms. A number python commands helped in getting an overall feel for the data:
 
 ### 2.1 Data Familiarisation ###
-Firstly, to get an idea of the size and shape of the dataset the following command can be run:<img align="right" src="/images/Screen Shots/dataShape.png" alt="Data Info"/>
+Firstly, to get an idea of the size and shape of the dataset the following command can be run:
+
 ```python
-data.shape()
-```
+data.shape
+``` 
+<img align="right" src="/images/Screen Shots/dataShape.png" alt="Data Shape"/>
 
 As can be seen from the results of this command, the dataset comprises 150 rows each with five attributes.
 
@@ -125,12 +127,15 @@ A boxplot or box and whisker plot is a graphical representation of data whereby 
 
 
 ## 4. The Python Program ##
+The overall project solution is divided into four separate programs. 
+* **menus.py** - which is the starting point for the solution
+* **dataInNumbers.py** - which serves to analyse / display the data in numerical format
+* **dataInPlots.py** - which serves to display the data through lot visualisations
+* **machineLearning.py** - which serves to apply some machine learning to the dataset to work as an Iris class predictor
 
-### 2.1 Importing the Dataset ###
-The dataset was downloaded from  ..... To import
+The solution was broken down in this manner to facilitate troubleshooting and to make the application easier to adapt to other datasets in the future. Full exception handling is not done in the solution as it is designed for use with a knowledgeable user / the creator.
 
-
-### 4.x Modules Imported ###
+### 4.1 Modules Imported ###
 A number of modules were required to perform this analysis, namely:
 * pandas - 
  - scatter_matrix
@@ -138,6 +143,16 @@ A number of modules were required to perform this analysis, namely:
 * matplotlib
  - pyplot
 * seaborn
+
+
+### 4.2 menus.py ###
+
+### 4.3 dataInNumbers.py ###
+
+
+### 2.1 Importing the Dataset ###
+The dataset was downloaded from  ..... To import
+
 
 
 ## References ##
@@ -153,6 +168,8 @@ A number of modules were required to perform this analysis, namely:
 [] https://www.kaggle.com/gopaltirupur/iris-data-analysis-and-machine-learning-python
 [] https://medium.com/codebagng/basic-analysis-of-the-iris-data-set-using-python-2995618a6342
 [] https://github.com/RitRa/Project2018-iris
+
+[] https://seaborn.pydata.org/generated/seaborn.pairplot.html
 
 
 [] https://machinelearningmastery.com/machine-learning-in-python-step-by-step/
