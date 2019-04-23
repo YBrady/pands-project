@@ -14,19 +14,20 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib
 
+
 # Also need to import the other python programs that make up the whole solution
 import dataInNumbers
 import dataInPlots
+import predictor
 
 sns.set(color_codes=True)
 
-
 # Declaring and setting the dataset as a global variable - saves going back and forth all the time
 data = pandas.read_csv("iris_csv.csv") # All Irises
-dataVirg = data.loc[data['class'] == "Iris-virginica"] # Just the Iris-virginica
-dataVers = data.loc[data['class'] == "Iris-versicolor"]# Just the Iris-versicolor
-dataSeto = data.loc[data['class'] == "Iris-setosa"] # Just the Iris-setosa
-spices = data['class'].unique()
+dataVirg = data.loc[data["class"] == "Iris-virginica"] # Just the Iris-virginica
+dataVers = data.loc[data["class"] == "Iris-versicolor"]# Just the Iris-versicolor
+dataSeto = data.loc[data["class"] == "Iris-setosa"] # Just the Iris-setosa
+spices = data["class"].unique()
 
 
 # Main function
@@ -44,16 +45,13 @@ def main():
 			dataInPlots.display_plot_menu()
 			display_menu()
 		elif (choice == "3"):
-			predictor()
+			machineLearning.main()
 			display_menu()
 		elif (choice == "0"):
 			break
 		else:
 			display_menu()			
 			
-def predictor():
-    print("Predictor")
-
 def display_menu():
     print("")
     print("Fischers Iris Data Set Analysis Menu")

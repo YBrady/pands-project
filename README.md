@@ -37,7 +37,7 @@ data.shape
 As can be seen from the results of this command, the dataset comprises 150 rows each with five attributes.
 
 ```python
-data.info
+data.info()
 ``` 
 <img align="left" src="/images/Screen Shots/dataInfo.png" alt="Data Info"/>
 The data.info command showed that there are 150 entries in the dataset, each with 5 columns. Of the five columns, four are numeric in nature (floating point) reflecting the sepal and petal lenth and width measurements respectively. The fifth column "class" is of data type object. 
@@ -118,15 +118,15 @@ They say that a picture tells a thousand words, so having looked at the numeric 
 A boxplot or box and whisker plot is a graphical representation of data whereby a rectangle is drawn around the middle two quartiles of the data. The median, the point at which 50% of values are higher and 50% of values are lower, is represented in the rectangle or box. The whiskers extend out of the box to represent the maximum and minimum values of the data with the exclusion of outliers. For this purpose the outlier is defined as any value outside 3/2 times the upper / lower quartile. Essentially, it gives a good overview of the data's distribution. [2]
 
 
-### 3.2 Histograms ###
+### 3.2 Violin Plots ###
 
-
-### 3.3 Violin Plots ###
+### 3.3 Histograms ###
 
 ### 3.4 Scattergrams ###
 
+## 4. Applying Machine Learning ##
 
-## 4. The Python Program ##
+## 5. The Python Program ##
 The overall project solution is divided into four separate programs. 
 * **menus.py** - which is the starting point for the solution
 * **dataInNumbers.py** - which serves to analyse / display the data in numerical format
@@ -135,7 +135,7 @@ The overall project solution is divided into four separate programs.
 
 The solution was broken down in this manner to facilitate troubleshooting and to make the application easier to adapt to other datasets in the future. Full exception handling is not done in the solution as it is designed for use with a knowledgeable user / the creator.
 
-### 4.1 Modules Imported ###
+### 5.1 Modules Imported ###
 A number of modules were required to perform this analysis, namely:
 * pandas - 
  - scatter_matrix
@@ -145,9 +145,51 @@ A number of modules were required to perform this analysis, namely:
 * seaborn
 
 
-### 4.2 menus.py ###
+### 5.2 menus.py ###
+The menus program is a simple program but serves as a conduit and controller of the overall solution. This is the program that is required to be run initially and acts as an interface to all other functions. 
 
-### 4.3 dataInNumbers.py ###
+The menus program itself is split into two separate functions. 
+* main()
+* display_menu()
+The main function is called when the program is first run. This calls the display menu which asks the user which option they would like to choose. The menus program is in effect the user interface.
+
+When run initially the user is prompted to select one of the following options:
+<img src="images//Screen Shots/initialMenu.png">
+
+Depending on the user selection, a separate program is launched as evidenced by the table below. In the event of a any other key being pressed, the main menu is once more displayed. This functionality is controlled by the main function in the menu program.
+
+| Selection                  | Program Launched                 |
+|----------------------------|----------------------------------|
+| 1 - Examine Raw Data       | dataInNumbers.display_num_menu() |
+| 2 - Review Plots           | dataInPlots.display_plot_menu()  |
+| 3 - Iris Species Predictor | machineLearning.main()           |
+| 0 - Exit                   | Exits the Program                |
+
+
+### 5.3 dataInNumbers.py ###
+
+
+| Selection                                      | Program Launched                                                                                                |
+|------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| 1 - Display Raw Data ...                       | pick_iris_class() and then shows data depending on the selection there.                                         |
+| 2 - Display Data Shape and Size                | Displays shape, size and class size information                                                                 |
+| 3 - Display Data Info                          | Displays data information                                                                                       |
+| 4 - Display First x Rows                       | Displays the first user specified number of rows                                                                |
+| 5 - Display Last x Rows                        | Displays the last user specified number of rows                                                                 |
+| 6 - Display Random x Rows                      | Displays a random user specified number of rows                                                                 |
+| 7 - Display Statistical Summary Data ...       | pick_iris_class() and then shows data depending on the selection there.                                         |
+| 8 - Display Statistical Data by Iris Class ... | Displays either the minimune, maximum, mean or standard deviation values by class according to user preference. |
+| 0 - Return to Main Menu                        | Returns to the main menu (menu.py)                                                                              |
+
+### 5.4 dataInPlots ###
+
+### 5.5 machineLearning.py ###
+The machine learning python program could be broken out into a number of distinct sections:
+* Splitting the dataset into training and validation parts
+* Applying six different algorithms to the training dataset to see which performed best
+* Plotting the results of the evaluation of the six algorithms
+* Using the validation dataset to test one algorithm
+* Displaying the results of the testing.
 
 
 ### 2.1 Importing the Dataset ###
@@ -155,7 +197,7 @@ The dataset was downloaded from  ..... To import
 
 
 
-## References ##
+## 6. References ##
 [1] Fisher,R.A. "The use of multiple measurements in taxonomic problems" Annual Eugenics, 7, Part II, 179-188 (1936);
 [2] https://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot
 
@@ -174,3 +216,11 @@ The dataset was downloaded from  ..... To import
 
 [] https://machinelearningmastery.com/machine-learning-in-python-step-by-step/
 [] https://diwashrestha.com/2017/09/18/machine-learning-on-iris/
+[] https://realpython.com/python-histograms/
+
+[] https://stackoverflow.com/questions/10824156/matplotlib-legend-location-numbers
+[] https://seaborn.pydata.org/generated/seaborn.pairplot.html
+[] https://machinelearningmastery.com/machine-learning-in-python-step-by-step/
+[] https://machinelearningmastery.com/index-slice-reshape-numpy-arrays-machine-learning-python/
+[] https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
+

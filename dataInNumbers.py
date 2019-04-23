@@ -14,9 +14,9 @@ import pandas
 
 # Declaring and setting the dataset as a global variable - saves going back and forth all the time
 data = pandas.read_csv("iris_csv.csv") # All Irises
-dataVirg = data.loc[data['class'] == "Iris-virginica"] # Just the Iris-virginica
-dataVers = data.loc[data['class'] == "Iris-versicolor"]# Just the Iris-versicolor
-dataSeto = data.loc[data['class'] == "Iris-setosa"] # Just the Iris-setosa
+dataVirg = data.loc[data["class"] == "Iris-virginica"] # Just the Iris-virginica
+dataVers = data.loc[data["class"] == "Iris-versicolor"]# Just the Iris-versicolor
+dataSeto = data.loc[data["class"] == "Iris-setosa"] # Just the Iris-setosa
 
 
 # Displays the Data Menu			
@@ -68,7 +68,7 @@ def display_num_menu():
         print("The dataset has",data.shape[0], "rows each with", data.shape[1], "attributes.")
         print("Altogether there are", data.size, "data values in the dataset.")
         print("The Iris class breakdown is as follows:")
-        print(data.groupby('class').size())
+        print(data.groupby("class").size())
         # Returns to the numbers menu
         display_num_menu()
 

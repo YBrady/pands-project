@@ -21,10 +21,21 @@ sns.set(color_codes=True)
 
 # Declaring and setting the dataset as a global variable - saves going back and forth all the time
 data = pandas.read_csv("iris_csv.csv") # All Irises
-dataVirg = data.loc[data['class'] == "Iris-virginica"] # Just the Iris-virginica
-dataVers = data.loc[data['class'] == "Iris-versicolor"]# Just the Iris-versicolor
-dataSeto = data.loc[data['class'] == "Iris-setosa"] # Just the Iris-setosa
-irisClasses = data['class'].unique() # A list of the Iris Classes
+dataVirg = data.loc[data["class"] == "Iris-virginica"] # Just the Iris-virginica
+dataVers = data.loc[data["class"] == "Iris-versicolor"]# Just the Iris-versicolor
+dataSeto = data.loc[data["class"] == "Iris-setosa"] # Just the Iris-setosa
+irisClasses = data["class"].unique() # A list of the Iris Classes
+
+# Get a full listing of columns
+# This is a list of the attributes
+listOfColumns = data.columns
+listOfNumericalColumns = []
+
+# Populate a list of columns that have numerical data (float64)
+for column in listOfColumns:
+	if (data[column].dtype == np.float64):
+		listOfNumericalColumns.append(column)
+
 
 # Displays a menu from which the user can select what plots to view
 def display_plot_menu():
@@ -33,13 +44,8 @@ def display_plot_menu():
     print("=" * 20)
     print("1 - BoxPlots ...")
     print("2 - Violin Plots ...")
-    print("6 - Boxplot of 4 measurements")
-    print("7 - Histogram of 4 measurements")
-    print("8 - Histogram of 4 measurements per iris class")
-    print("10 - Violin plot - Petal Length")
-    print("11 - Scatterplot")
-    print("12 - Colour Scatterplot")
-    print("13 - Line and Scatterplot (Colour)")
+    print("3 - Histograms ...")
+    print("4 - Scattergrams ...")
     print("0 - Return to Main Menu")
     
     print("")
@@ -56,32 +62,15 @@ def display_plot_menu():
         elif (choice == "2"):
             # Violin plots
             violin_menu()
-        elif (choice == "7"):
-            # Histogram of the four measurements using all data
-            data.hist(figsize=(10,5))
-            plt.suptitle("All Iris Classes")
-        elif (choice == "8"):
-            # 3 Histograms of the four measurements per Iris class
-            for irisClass in irisClasses:
-                data[data['class']==irisClass].hist(figsize=(10,5))
-                plt.suptitle(irisClass)
-        elif (choice == "9"):
-            # Boxplot of four measurements grouped by Iris class
-            data.boxplot(by='class',figsize=(15,15))
-        elif (choice == "10"):
-            # Violin plot of petal length per class
-            sns.violinplot(data=data,x='class',y='petal length (cm)')
-        elif (choice == "11"):
-            # Scatter matrix using pandas
-            pandas.plotting.scatter_matrix(data,figsize=(15,10))
-        elif (choice == "12"):
-            # Plot of pairwise relationships of dataset with Histograms on diagonal
-            sns.pairplot(data,hue="class")
-        elif (choice == "13"):
-            # Plot of pairwise realationships of dataset with kde (kernel density estimate) on diagonal
-            sns.pairplot(data, diag_kind='kde',hue='class')
+        elif (choice == "3"):
+            # Histograms
+            hist_menu()
+        elif (choice == "4"):
+            # Scattergrams / Pairplots
+            scat_menu()
         else:
-            # Any other value re-display the menu
+            # Any other value print error message and re-display the menu
+            print("*** Invalid Selection ***")
             display_plot_menu()
         
         plt.show() # show the plot created
@@ -103,19 +92,19 @@ def box_menu():
     print("")
     if choice == "1":
         # Boxplot of Iris-Virginica data
-        dataVirg.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
+        dataVirg.plot(kind="box", subplots=True, layout=(2,2), sharex=False, sharey=False)
         plt.suptitle("Iris Virginica")
     elif choice == "2":
         # Boxplot of Iris-Setosa data
-        dataSeto.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
+        dataSeto.plot(kind="box", subplots=True, layout=(2,2), sharex=False, sharey=False)
         plt.suptitle("Iris Setosa")
     elif choice == "3":
         # Boxplot of Iris-Versicolor data
-        dataVers.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
+        dataVers.plot(kind="box", subplots=True, layout=(2,2), sharex=False, sharey=False)
         plt.suptitle("Iris Versicolor")
     elif choice == "4":
         # Boxplot of All data
-        data.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
+        data.plot(kind="box", subplots=True, layout=(2,2), sharex=False, sharey=False)
         plt.suptitle("All Irises")
     elif choice == "5":
         # Boxplot of all data on multiple graphs
@@ -123,30 +112,16 @@ def box_menu():
         plt.suptitle("Values for each Iris Class")
     elif choice == "6":        
         # Boxplots for different numerical columns on single plot
-        data.plot(kind='box')
+        data.plot(kind="box")
     elif (choice == "7"):
         # Boxplot of four measurements grouped by Iris class
-        data.boxplot(by='class',figsize=(15,15))
+        data.boxplot(by="class",figsize=(15,15))
     else:
-        print("Invalid choice - showing all data")
-    plt.show
+        print("*** Invalid choice ***")
 
-def compare(plotType):
-	# Get a full listing of columns
-	listOfColumns = data.columns
-	listOfNumericalColumns = []
-
-    # Populate a list of columns that have numerical data (float64)
-	for column in listOfColumns:
-		if (data[column].dtype == np.float64):
-			listOfNumericalColumns.append(column)
-    
-	if plotType =="b":
-		# Using matplotlib to create a number of subplots - No of columns with Numbers x No of Iris Classes
-		fig, axs = plt.subplots(nrows=len(listOfNumericalColumns),ncols=len(irisClasses),figsize=(15,15), sharex="col")
-	elif plotType =="v":
-		# Using matplotlib to create a number of subplots - No of columns with Numbers x No of Iris Classes
-		fig, axs = plt.subplots(nrows=len(listOfNumericalColumns),figsize=(15,15))
+def compare(plotType):  
+	# Using matplotlib to create a number of subplots - No of columns with Numbers x No of Iris Classes
+	fig, axs = plt.subplots(nrows=len(listOfNumericalColumns),ncols=len(irisClasses),figsize=(15,15), sharex="col")
 
 	# Iterates through each numerical column (sepal amd petal lengths and widths)
 	for i in range(len(listOfNumericalColumns)):
@@ -155,14 +130,13 @@ def compare(plotType):
 		for j in range(len(irisClasses)):  
 			if plotType == "b":
 				# Create a boxplot of the numerical column for the relavant Iris Class
-				axs[i,j].boxplot(data[listOfNumericalColumns[i]][data['class']==irisClasses[j]])
-				# Title the plot appropriately
-				axs[i,j].set_title(irisClasses[j])
-				axs[i,j].set_ylabel(listOfNumericalColumns[i])
-			elif plotType =="v":
-				# Create a violin of the numerical column for the relevant Iris Class
-				axs[i].violinplot(data = data, x = "class", y = [listOfNumericalColumns[i]])
-				axs[i].set_ylabel(listOfNumericalColumns[i])
+				axs[i,j].boxplot(data[listOfNumericalColumns[i]][data["class"]==irisClasses[j]])
+			elif plotType =="h":
+				# Create a boxplot of the numerical column for the relavant Iris Class
+				axs[i,j].hist(data[listOfNumericalColumns[i]][data["class"]==irisClasses[j]])
+			# Title the plot appropriately
+			axs[i,j].set_title(irisClasses[j])
+			axs[i,j].set_ylabel(listOfNumericalColumns[i])
 
 def violin_menu():
     print("=" * 20)
@@ -172,37 +146,117 @@ def violin_menu():
     print("2 - Sepal Width")
     print("3 - Petal Length")
     print("4 - Petal Width")
-
-    print("5 - All plots")
-    print("6 - All plots on Single Graph")
-    print("7 - Compare All Classes")
+    print("5 - All plots on a Single Graph")
     print("")
     choice = input("Please select which item(s) you want to plot : ")
     print("")
     if choice == "1":
         # Violin plot of sepal length per class
-        sns.violinplot(data=data,x='class',y='sepal length (cm)')
+        sns.violinplot(data=data,x="class",y="sepal length (cm)")
     elif choice == "2":
         # Violin plot of sepal width per class
-        sns.violinplot(data=data,x='class',y='sepal width (cm)')
+        sns.violinplot(data=data,x="class",y="sepal width (cm)")
     elif choice == "3":
         # Violin plot of petal length per class
-        sns.violinplot(data=data,x='class',y='petal length (cm)')
+        sns.violinplot(data=data,x="class",y="petal length (cm)")
     elif choice == "4":
         # Violin plot of petal width per class
-        sns.violinplot(data=data,x='class',y='petal width (cm)')
+        sns.violinplot(data=data,x="class",y="petal width (cm)")
     elif choice == "5":
         # All violin plots
-        compare("v")
-    elif choice == "6":
-        #All violin plots on single graph
-        print("")
-    elif choice == "7":
-        #Compare all classes
-        print("")
+	    # Using matplotlib to create a number of subplots - No of columns with Numbers x No of Iris Classes
+        fig, axs = plt.subplots(nrows=2, ncols = 2, figsize=(10,5))
+
+        # Populate the subplots with the appropriate graphs
+        sns.violinplot(data=data, x="class", y = "sepal length (cm)", ax = axs[0,0])
+        sns.violinplot(data=data, x="class", y = "sepal width (cm)", ax = axs[0,1])
+        sns.violinplot(data=data, x="class", y = "petal length (cm)", ax = axs[1,0])
+        sns.violinplot(data=data, x="class", y = "petal width (cm)", ax = axs[1,1])
+        #fig.tight_layout()
+        plt.suptitle("Violin Plots of All Measurements")
     else:
-        print("invalid choice - plotting all violin plots instead")
-        # Add default plot
+        print("*** Invalid choice ***")
+
+def hist_menu():
+    print("=" * 20)
+    print("Histogram Menu")
+    print("=" * 20)
+    print("1 - Iris-Virginica")
+    print("2 - Iris-Setosa")
+    print("3 - Iris-Versicolor")
+    print("4 - All Iris Data")
+    print("5 - All plots")
+    print("6 - Compare All Classes")
+    print("")
+    choice = input("Please select which item(s) you want to plot : ")
+    print("")
+    if choice == "1":
+        # Histogram of Iris-Virginica data
+        dataVirg.hist(figsize=(10,5))
+        plt.suptitle("Iris Virginica")
+    elif choice == "2":
+        # Histogram of Iris-Setosa data
+        dataSeto.hist(figsize=(10,5))
+        plt.suptitle("Iris Setosa")
+    elif choice == "3":
+        # Histogram of Iris-Versicolor data
+        dataVers.hist(figsize=(10,5))
+        plt.suptitle("Iris Versicolor")
+    elif choice == "4":
+        # Histogram of All data
+        data.hist(figsize=(10,5))
+        plt.suptitle("All Irises")
+    elif choice == "5":
+        # Histogram of all data on multiple graphs
+        compare("h")
+        plt.suptitle("Values for each Iris Class")
+    elif (choice == "6"):
+        # Four subplots, one for each attribute, grouped by Iris class
+        fig, axes = plt.subplots(nrows= 2, ncols=2, figsize=(10,10))
+        data.groupby("class").hist(column = listOfNumericalColumns[0], ax = axes[0,0])
+        data.groupby("class").hist(column = listOfNumericalColumns[1], ax = axes[0,1])
+        data.groupby("class").hist(column = listOfNumericalColumns[2], ax = axes[1,0])
+        data.groupby("class").hist(column = listOfNumericalColumns[3], ax = axes[1,1])
+        # Add a legend, located at the upper right hand corner, in one column
+        fig.legend(irisClasses, loc = 1, ncol = 1)
+        # Add a title
+        plt.suptitle("Histogram of all Iris Classes")
+
+    else:
+        print("*** Invalid choice ***")
+
+def scat_menu():
+    print("=" * 20)
+    print("Scatter Matrix Menu")
+    print("=" * 20)
+    print("1 - Scatterplot from Pandas")
+    print("2 - Pairplot from Seaborn with Histograms")
+    print("3 - Pairplot from Seaborn with KDE Plotting")
+    print("0 - Return to Main Menu")
+    
+    print("")
+    choice = input("Enter plot choice: ")
+    print("")
+    
+    if (choice == "0"):
+        # Returns to main menu if called from menus program. Ends if run as a standalone program
+        return
+    else:
+        if (choice == "1"):
+            # Scatter matrix using pandas
+            pandas.plotting.scatter_matrix(data,figsize=(15,10))
+            plt.suptitle("Pandas Scatter Matrix with KDE Plotting")
+        elif (choice == "2"):
+            # Plot of pairwise relationships of dataset with Histograms on diagonal
+            sns.pairplot(data, diag_kind = "hist",  hue="class")
+            plt.suptitle("Seaborn Pair Plot with Histogram Plotting")
+        elif (choice == "3"):
+            # Plot of pairwise realationships of dataset with kde (kernel density estimate) on diagonal
+            sns.pairplot(data, diag_kind="kde", hue="class")
+            plt.suptitle("Seaborn Pair Plot with KDE Plotting")
+        else:
+            # Any other value print error message and re-display the menu
+            print("*** Invalid Selection ***")
 
 # This is used so this code can be run in isolation for testing
 if __name__ == "__main__":
