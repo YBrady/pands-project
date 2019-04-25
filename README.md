@@ -13,18 +13,18 @@ ___________________________________________
 
 | No | Instructions                                                                                       |
 |----|----------------------------------------------------------------------------------------------------|
-| 1  | Download the repository                                                                            |
+| 1  | Download the repository.                                                                           |
 | 2  | Ensure python and all associated libraries are installed on your machine.                          |
 | 3  | To run the program type the following the int command Line Interface:   ```python run menu.py```   |
-| 4  | Follow instructions as per menus                                                                   |
+| 4  | Follow instructions as per menus.                                                                  |
 
 ## 1. The Background ##
 
-In 1936 Robert Fisher published a paper _The use of multiple measurements in taxonomic problems as an example of linear discriminant analysis_ [1] introducing the now famous Iris Data Set. This data set comprises the width and length measurements of the sepals and petals of three different Iris varieties. 50 samples of each variety were collected on the same day, by the same person (Edgar Anderson) and measured using the same instruments. As it was Anderson who actually collected the flowers from the Gaspé Penninsula in Canada, this dataset is sometimes called the Anderson Data Set.
+In 1936 Robert Fisher published a paper _The use of multiple measurements in taxonomic problems as an example of linear discriminant analysis_ introducing the now famous Iris Data Set. This data set comprises the width and length measurements of the sepals and petals of three different Iris varieties. 50 samples of each variety were collected on the same day, by the same person (Edgar Anderson) and measured using the same instruments. As it was Anderson who actually collected the flowers from the Gaspé Penninsula in Canada, this dataset is sometimes called the Anderson Data Set.
 
 The dataset comprises of 150 records each containing 5 no attributes - each of the petal and sepal measurements and also the variety of Iris the measurements related to. This dataset is widely used as a reference for Data Analytics amd Machine Learning see the references section below for a small subset of the analysis performed on this dataset. As part of this project I have reviewed each of the references listed.
 
-<src="/images/iris-varieties.png" alt="Iris Varieties"/>
+<src="/images/iris-varieties.png" alt="Iris Varieties">
 
 ### 1.1 The Project Brief ###
 
@@ -37,13 +37,13 @@ Initial exploration of the dataset consisted of finding out about the data in br
 ### 2.1 Data Familiarisation ###
 
 Firstly, to get an idea of the size and shape of the dataset the following command can be run:
+<img align = "right" src="/images/Screen Shots/dataShape.png" alt="Data Shape"/>
 
 ```python
 data.shape
-``` 
+```  
 
-<img align = "left" src="/images/Screen Shots/dataShape.png" alt="Data Shape"/>
-<img align="right" src="/images/Screen Shots/dataShapeMent.png" alt="Data Shape"/>
+<img src="/images/Screen Shots/dataShapeMent.png" alt="Data Shape"/>
 
 As can be seen from the results of this command, the dataset comprises 150 rows each with five attributes. This is no indication at this stage whether all attributes are populated. Now lets look a bit more at at data using the data.info() command.
 
@@ -52,7 +52,7 @@ data.info()
 ```
 
 <img src="/images/Screen Shots/dataInfo.png" alt="Data Info"/>
-The data.info command showed that there are 150 entries in the dataset, each with 5 columns. Of the five columns, four are numeric in nature (floating point) reflecting the sepal and petal lenth and width measurements respectively. The fifth column "class" is of data type object.
+The data.info() command showed that there are 150 entries in the dataset, each with 5 columns. Of the five columns, four are numeric in nature (floating point) reflecting the sepal and petal length and width measurements respectively. The fifth column "class" is of data type object.
 
 ```python
 data.head()
@@ -82,18 +82,21 @@ data["class"].value_counts()
 
 <img align="left" src="/images/Screen Shots/classes.png" alt="Random Five rows"/>
 The value_counts() returns the count of all the various instances of the class attribute. This can be used to determine the number of distinct classes and the frequency by which they occur. The resultant data shows that there are three distinct classes, namely:  
+
 * Iris virginica  
 * Iris-setosa  
 * Iris-versicolor  
+
 All three iris varieties appear in the dataset with the same frequency - 50 readings each.
 
 ### 2.2 Initial Statistical Analysis ###
 
 Now we know a little bit about the data in the dataset, lets look at some broad statistics.
 
-'''python
+```python
 data.describe()
-'''
+```
+
 <img src="/images/Screen Shots/describe.png" alt="Overall Stats"/>  
 
 The data.describe() function returns the overall statistics for each numeric attribute. It is evident from the results to date that there are 150 rows with every attribute filled, as in there are no null values. This also corresponds to the earlier finding of 3 x iris classes each of 50 readings. A further check could be done using the following command which returns False, meaning there are no null values.
@@ -102,15 +105,15 @@ The data.describe() function returns the overall statistics for each numeric att
 data.isnull().values.any()
 ```
 
-The general description however provides information on all iris classes together. From our head, tail and random measurements above, it would appear that there are differences between the iris classes and it would be more benficial to get this information per iris class.
+The general description however provides information on all iris classes together. From our head, tail and random measurements above, it would appear that there are differences between the iris classes and it would be more beneficial to get this information per iris class.
 
 ```python
 data.groupby("class").describe()
 ```  
 
 <img src="/images/Screen Shots/describeClass.png" alt="Class by Class Stats"/>  
-While the above command would appear to be what is required, the resultant data comprises 32 columns and is therefore of limited value as it is hard / impossible to read in its entirety. Given these contraints it is better to break the data down to more manageable parts.  
-
+While the above command would appear to be what is required, the resultant data comprises 32 columns and is therefore of limited value as it is hard / impossible to read in its entirety. Given these constraints it is better to break the data down to more manageable parts.  
+  
 We can do this in a number of ways, two of which are described below.
 
 * Using the describe method for each class of iris where xxx is the class in question
@@ -152,12 +155,14 @@ A sample of the plot for all Irises is show below:
 <img src="images/Plots/boxAll.png">
 
 While the plotting of the combined data is interesting, of more benefit is where the plots are grouped by class as per the diagram below:
+
 <img src="images/Plots/boxClass.png">
 
 As can be seen from the plot above, the Iris setosa class appears to be distinct in its petal measurements and outlines itself as a possible method of distinguishing this variety of Iris from the the other two. The Iris virginica and Iris versicolor varieties are harder to separate.
 
 ### 3.2 Violin Plots ###
-<img align="right" src="images/violinPlot.png" width = "300"/> A violin plot is another way of representing of data, similar to the boxplot but with the addition of probability densities for the values. The wider the plot, the greater the probability of data in that area. Violin plots may be created to for each numeric attribute and grouped according to Iris class. 
+
+<img align="right" src="images/violinPlot.png" width = "300"/> A violin plot is another way of representing of data, similar to the boxplot but with the addition of probability densities for the values. The wider the plot, the greater the probability of data in that area. Violin plots may be created to for each numeric attribute and grouped according to Iris class.  
 
 The python code to generate the violin plots employed the seaborn data visualisation library. A sample of which is given below. In the example shown, the sepal length is compared for each Iris class.
 
@@ -172,9 +177,9 @@ The resultant plots of the data and in particular the petal measurements again h
 
 Comparing the violin and boxplot graphs, the distribution of data and the probabilities are much easier to discern with the violin plot.
 
-
 ### 3.3 Histograms ###
-A histogram is a plot that lets you discover and show, the underlying frequency distribution (shape) of a set of data. This allows the inspection of the data for its underlying distribution (e.g., normal distribution), outliers, skewness, etc. A historgram is particularly useful to determine if there are wide variances inthe data that would not be revealed with for example the boxplot.
+
+A histogram is a plot that lets you discover and show, the underlying frequency distribution (shape) of a set of data. This allows the inspection of the data for its underlying distribution (e.g., normal distribution), outliers, skewness, etc. A histogram is particularly useful to determine if there are wide variances in the data that would not be revealed with for example the boxplot.
 
 The python code used to plot a histogram is given below.
 
@@ -185,17 +190,19 @@ plt.suptitle("All Irises")
 ```
 
 With the resultant histogram plotted as shown below:
+
 <img src="images/Plots/histAll.png">
 
 As with the boxplot, it was decided that a better representation would be if the classes were separated. This was done in two ways. The first method employed iterates over each of the numeric measurements for each class resulting in 12 separate graphs being depicted. As the x-axis is shared among ech of the classes it is clear to see where the data is separated between the classes.
 <img src="images/Plots/hist12.png">
 
-The secons method employed involved overlaying each class onto the same numeric data graph resulting in four separate graphs being plotted. This is a more compact way of displaying the data but the trade-off is that some of the granularity could be lost under the overlays.
+The second method employed involved overlaying each class onto the same numeric data graph resulting in four separate graphs being plotted. This is a more compact way of displaying the data but the trade-off is that some of the granularity could be lost under the overlays.
 <img src="images/Plots/histAllOne.png">
 
 In each of the above comparison graphs, the petal width appears to be the most useful single parameter in the quest to distinguish between the iris varieties.
 
 ### 3.4 Scattergrams ###
+
 Up until now the plotting all involved looking at one numeric parameter at a time. This kind of analysis is called univariate analysis. By looking at a second variable and the relationship between the two we are extending our analysis to become bivariate. Scattergrams are a very simple method to see any relationships etc that may be present.
 
 A scattergram is a graphic representation of points referencing two variables. To create a scattergram, two variables are observed and plotted on a graph. The resulting display demonstrates the relationship between the variables. The relationship is strongest where the points are clustered closest together. Scattergrams are sometimes used to represent the results of lab tests or statistical surveys. A scattergram may also be called a scatter plot, scatter diagram, scatter chart, or scatter graph.
@@ -208,13 +215,13 @@ pandas.plotting.scatter_matrix(data,figsize=(15,10))
 plt.suptitle("Pandas Scatter Matrix")
 ```
 
-The resultant graph showed each of the cominbinations of numerical data plotted against each other as per the diagram below:
+The resultant graph showed each of the combinations of numerical data plotted against each other as per the diagram below:
 <img src="images/Plots/pandasScatter.png">
 
 While interesting, the data from the classes is hard to discern in this plot. As a result a second library wac employed - that of the previously mention seaborn library.
 
 ```python
-# Plot of pairwise realationships of dataset with kde (kernel density estimate) on diagonal
+# Plot of pairwise relationships of dataset with kde (kernel density estimate) on diagonal
 sns.pairplot(data, diag_kind="kde", hue="class")
 plt.suptitle("Seaborn Pair Plot with KDE Plotting")
 ```
@@ -227,9 +234,11 @@ Using this bivariate analysis, we can see clear patterns emerging that can serve
 Having investigated and examined the numbers and having visualised the data through univariate and bivariate analysis, it si now time to see if some machine learning can be applied to the dataset to see if the iris variety can be determined by means of their measurements alone.
 
 ## 4. Applying Machine Learning ##
+
 A very small element of machine learning was included in this project. This was not expanded on further as it has not yet been covered in any modules completed. The whole analysis and machine learning is done to a basic level as a result. The sklearn library was employed to perform most of the elements of this program.
 
 The machine learning python program could be broken out into a number of distinct sections:
+
 * Splitting the dataset into training and validation parts
 * Applying six different algorithms to the training dataset to see which performed best
 * Plotting the results of the evaluation of the six algorithms
@@ -253,7 +262,7 @@ validation_size = 0.20
 seed = 7
 # Performing the split using sklearn functions
 X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
-# Evaluation metric 
+# Evaluation metric
 scoring = "accuracy"
 ```
 
@@ -278,12 +287,12 @@ models.append(('NB', GaussianNB()))
 models.append(('SVM', SVC(gamma='auto')))
 ```
 
-The algorithms chosen were 
+The algorithms chosen were  
 
 * Logistic Regression (LR) Model - classifies into two classes by means of a logistic function, an S-like curve
 * Linear Discriminant Analysis (LDA) - Predictions are made by calculating a discriminate value for each class and making a prediction for the class with the largest value.
 * K-Nearest Neighbors (KNN) - Predictions are made for a new data point by searching through the entire training set for the K most similar instances (the neighbors) and summarizing the output variable for those K instances.
-* Classification and Regression Tress (CART) - a decision tree where each node represents a single input variable and a split point on that varaible
+* Classification and Regression Tress (CART) - a decision tree where each node represents a single input variable and a split point on that variable
 * Gaussian Naive Bayes (NB) - based on an assumed bell curve distribution of variables
 * Support Vector Machines (SVM) - where a curved line or hyperplane is drawn based on a number of coefficients to classify the data
 
@@ -344,7 +353,9 @@ The recall is the ratio tp / (tp + fn) where tp is the number of true positives 
 The f1-score takes into account both the precision and recall, while the support is the number of instances of that class in the training set.
 
 ## 5. The Python Program ##
-The overall project solution is divided into four separate programs. 
+
+The overall project solution is divided into four separate programs.  
+
 * **menus.py** - which is the starting point for the solution. This program calls on all the others as needed to deliver the overall solution.
 * **dataInNumbers.py** - which serves to analyse / display the data in numerical format
 * **dataInPlots.py** - which serves to display the data through lot visualisations
@@ -353,6 +364,7 @@ The overall project solution is divided into four separate programs.
 The solution was broken down in this manner to facilitate troubleshooting and to make the application easier to adapt to other datasets in the future. Full exception handling is not done in the solution as it is designed for use with a knowledgeable user / the creator.
 
 ### 5.1 Modules Imported ###
+
 A number of library  modules were required to perform this analysis, namely:
 
 * pandas - an open source library providing high-performance, easy-to-use data structures and data analysis tools
@@ -363,9 +375,9 @@ A number of library  modules were required to perform this analysis, namely:
 
 ### 5.2 menus.py ###
 
-The menus program is a simple program but serves as a conduit and controller of the overall solution. This is the program that is required to be run initially and acts as an interface to all other functions. 
+The menus program is a simple program but serves as a conduit and controller of the overall solution. This is the program that is required to be run initially and acts as an interface to all other functions.  
 
-The menus program itself is split into two separate functions. 
+The menus program itself is split into two separate functions.
 
 * main()
 * display_menu()  
@@ -390,7 +402,7 @@ Depending on the user selection, a separate program is launched as evidenced by 
 This program begins with a user menu also as shown below:  
 <img src="images//Screen Shots/rawMenu.png" alt = "Raw Data Menu">
 
-Each of the options and associated program actions are lsted below.
+Each of the options and associated program actions are listed below.
 
 | Selection                                      | Result                                                                                                                      |
 |------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
@@ -410,7 +422,7 @@ Where the pick_iris_class() is noted, a separate menu appears to see which data 
 
 ### 5.4 dataInPlots ###
 
-When run, the dataInPlots program also begins with a menu whereby the user is prompted as to which plots they would like to see.
+When run, the dataInPlots program also begins with a menu whereby the user is prompted as to which plots they would like to see.  
 <img src="images//Screen Shots/plotmenu.png" alt = "Plot Menu">
 
 The options provided and the associated actions are detailed in the table below.
@@ -418,12 +430,13 @@ The options provided and the associated actions are detailed in the table below.
 | Selection           | Result                                                                         |
 |---------------------|---------------------------------------------------------------------------------|
 | 1-BoxPlots...       | Options to print boxplots of individual Iris Classes, or multiple plots         |
-| 2-Violin Plots...   | Options to print violin plot of single atttributes per class, or multiple plots |
+| 2-Violin Plots...   | Options to print violin plot of single attributes per class, or multiple plots  |
 | 3-Histograms...     | Options to print histograms of individual Iris Classes, or multiple plots       |
 | 4-Scattergrams...   | Options to display scattergrams from pandas or seaborn                          |
 | 0-Back to Main Menu | Returns to main menu                                                            |
 
 ### 5.5 machineLearning.py ###
+
 The machine learning python program is broken out into a number of distinct sections:
 
 * Splitting the dataset into training and validation parts
@@ -435,10 +448,12 @@ The machine learning python program is broken out into a number of distinct sect
 The program, code and outputs are already described in section 4 above.
 
 ## 6. Conclusion ##
-Based on dataset given it is possible to employ some machine learning techniques and methods to predict with a good level of accuracy the Iris variety of the three analysed. Not only is this possible, but like the car analogy, it is possible to achieve this without knowing the exact mechanics of the machine learning algorithm. 
+
+Based on dataset given it is possible to employ some machine learning techniques and methods to predict with a good level of accuracy the Iris variety of the three analysed. Not only is this possible, but like the car analogy, it is possible to achieve this without knowing the exact mechanics of the machine learning algorithm.
 
 ## 7. Reflection ##
-This project provided a great challenge trying to come to terms with a many varied libraries and concepts that were new. From never having heard of the Iris dataset a few short weeks ago I now know how important it is as a learning dataset. It is small enough to be able to tackle, varied enough to be able to apply some machine learning and with just enough outliers in results to throw the odd curveball. 
+
+This project provided a great challenge trying to come to terms with a many varied libraries and concepts that were new. From never having heard of the Iris dataset a few short weeks ago I now know how important it is as a learning dataset. It is small enough to be able to tackle, varied enough to be able to apply some machine learning and with just enough outliers in results to throw the odd curveball.  
 
 Initially I struggled with how to present the final project / python code. From the research I did online, I knew the kind of checks and plotting that could be performed, but I did not know how to put this across in a coherent fashion. The idea of the menu-based approach can to mind while doing another project. This approach in my mind served a number of purposes.
 
@@ -446,13 +461,14 @@ Firstly, I always like to be able to re-use and / or build on previous work. Muc
 
 Secondly, after doing the research on how to analyse the data for this project, I noticed there was a flow to doing this. Initially you look at the raw data, see the stats, have a peek etc. I tried to follow this methodology in the menus too so I would be driven down the right road again. This was particularly true of the raw data and plotting parts where I was more confident.
 
-The machine learning part was very much a stretch for me. I researched enough to engage some machine learning models on the dataset, but going forward I would like to build menus around this element too, where you can choose which models to evaluate and to use as the predictor. 
+The machine learning part was very much a stretch for me. I researched enough to engage some machine learning models on the dataset, but going forward I would like to build menus around this element too, where you can choose which models to evaluate and to use as the predictor.  
 
 With respect to the references listed, this is only a small subset of the research I performed to complete this project. Actually attributing the reference to part of the code / readme file where it was used proved impossible as most were used extensively throughout the project as a whole. The one single reference I found most helpful was that listed as [21] which gave me a lead to follow for the machine learning element.
 
 In summary of this project while initially daunted, I am happy to have completed this project in advance of doing any Data Analytics module. Now already having felt some of the pain and inexpertly applying some of the techniques demanded of the speciality, I will now enter into the module with an understanding of the techniques and issues in machine learning, and loaded with more than a question or two waiting to be answered!
 
 ## 8. References ##
+
 [1] Fisher,R.A. "The use of multiple measurements in taxonomic problems" Annual Eugenics, 7, Part II, 179-188 (1936);  
 [2] https://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot  
 [3] https://mode.com/blog/violin-plot-examples  
@@ -465,15 +481,15 @@ In summary of this project while initially daunted, I am happy to have completed
 [10] https://seaborn.pydata.org/generated/seaborn.pairplot.html  
 [11] http://www.learn4master.com/machine-learning/visualize-iris-dataset-using-python  
 [12] https://medium.com/codebagng/basic-analysis-of-the-iris-data-set-using-python-2995618a6342  
-[13] https://seaborn.pydata.org/generated/seaborn.pairplot.html  
+[13] https://sites.engineering.ucsb.edu/~shell/che210d/numpy.pdf  
 [14] https://towardsdatascience.com/building-a-k-nearest-neighbors-k-nn-model-with-scikit-learn-51209555453a  
 [15] https://machinelearningmastery.com/machine-learning-in-python-step-by-step/  
 [16] https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html  
 [17] https://realpython.com/python-histograms/  
 [18] https://www.kaggle.com/benhamner/sepal-width-vs-length  
 [19] https://stackoverflow.com/questions/10824156/matplotlib-legend-location-numbers  
-[20] https://seaborn.pydata.org/generated/seaborn.pairplot.html  
-[21] https://machinelearningmastery.com/machine-learning-in-python-step-by-step/  
+[20] https://rpubs.com/nandong/imlp-ch1-iris  
+[21] https://copycoding.com/d/your-second-machine-learning-project-with-this-famous-iris-dataset-in-python-part-5-of-9-  
 [22] https://machinelearningmastery.com/index-slice-reshape-numpy-arrays-machine-learning-python/  
 [23] https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html  
 [24] https://www.workplacetesting.com/definition/1333/scattergram  
