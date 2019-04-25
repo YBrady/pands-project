@@ -24,7 +24,7 @@ In 1936 Robert Fisher published a paper _The use of multiple measurements in tax
 
 The dataset comprises of 150 records each containing 5 no attributes - each of the petal and sepal measurements and also the variety of Iris the measurements related to. This dataset is widely used as a reference for Data Analytics amd Machine Learning see the references section below for a small subset of the analysis performed on this dataset. As part of this project I have reviewed each of the references listed.
 
-<src="/images/iris-varieties.png" alt="Iris Varieties">
+<img src="/images/iris-varieties.png" alt="Iris Varieties"/>
 
 ### 1.1 The Project Brief ###
 
