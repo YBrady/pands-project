@@ -11,7 +11,6 @@
 # Import the relevant libraries
 import pandas
 import numpy as np
-from pandas.plotting import scatter_matrix
 import matplotlib.pyplot as plt
 from sklearn import model_selection
 from sklearn.metrics import classification_report
@@ -27,20 +26,6 @@ from sklearn.svm import SVC
 
 # Declaring and setting the dataset as a global variable - saves going back and forth all the time
 data = pandas.read_csv("iris_csv.csv") # All Irises
-dataVirg = data.loc[data["class"] == "Iris-virginica"] # Just the Iris-virginica
-dataVers = data.loc[data["class"] == "Iris-versicolor"]# Just the Iris-versicolor
-dataSeto = data.loc[data["class"] == "Iris-setosa"] # Just the Iris-setosa
-irisClasses = data["class"].unique() # A list of the Iris Classes
-
-# Get a full listing of columns
-listOfColumns = data.columns
-listOfNumericalColumns = []
-
-# Populate a list of columns that have numerical data (float64)
-# This is a list of the attributes
-for column in listOfColumns:
-	if (data[column].dtype == np.float64):
-		listOfNumericalColumns.append(column)
 
 def main():
     # ----------Splitting the dataset into train and test data ---------------
@@ -94,6 +79,7 @@ def main():
     print("------------------------------------------------------------------------")
     print("")
     print("")
+
     # ----------- Compare Algorithms ---------------------------
     fig = plt.figure()
     fig.suptitle('Algorithm Comparison')
@@ -104,7 +90,7 @@ def main():
     ax.set_xticklabels(names)
     plt.show()
     
-    #--------------Make Predictions on Validation Dataset
+    #--------------Make Predictions on Validation Dataset ------------
     # Just using knn algorithm
     knn = KNeighborsClassifier()
     # Test using the test train X = Values, Y = class
@@ -114,7 +100,7 @@ def main():
     # Print the results
     print("Using the Testing Dataset with the KNN Model as Predictor:")
     print("")
-    print("The accuracy from the test dataset was scored at", accuracy_score(Y_validation, predictions), "%")
+    print("The accuracy from the test dataset was scored at", accuracy_score(Y_validation, predictions) * 100, "%")
     print("")
     # The confusion matrix
     print("The confusion matrix is as follows:")

@@ -129,10 +129,10 @@ def compare(plotType):
 		# Iterates through each Iris Class
 		for j in range(len(irisClasses)):  
 			if plotType == "b":
-				# Create a boxplot of the numerical column for the relavant Iris Class
+				# Create a boxplot of the numerical column for the relevant Iris Class
 				axs[i,j].boxplot(data[listOfNumericalColumns[i]][data["class"]==irisClasses[j]])
 			elif plotType =="h":
-				# Create a boxplot of the numerical column for the relavant Iris Class
+				# Create a boxplot of the numerical column for the relevant Iris Class
 				axs[i,j].hist(data[listOfNumericalColumns[i]][data["class"]==irisClasses[j]])
 			# Title the plot appropriately
 			axs[i,j].set_title(irisClasses[j])
@@ -245,7 +245,7 @@ def scat_menu():
         if (choice == "1"):
             # Scatter matrix using pandas
             pandas.plotting.scatter_matrix(data,figsize=(15,10))
-            plt.suptitle("Pandas Scatter Matrix with KDE Plotting")
+            plt.suptitle("Pandas Scatter Matrix")
         elif (choice == "2"):
             # Plot of pairwise relationships of dataset with Histograms on diagonal
             sns.pairplot(data, diag_kind = "hist",  hue="class")
